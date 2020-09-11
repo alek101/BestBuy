@@ -26,9 +26,7 @@ class CreateProductsTable extends Migration
             $table->decimal('prise',10,2);
             $table->decimal('discount',10,2);
             $table->mediumText('description');
-            $table->mediumText('link');
-
-            
+            $table->mediumText('link');            
         });
     }
 

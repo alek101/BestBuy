@@ -3,9 +3,9 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
-use App\Category;
 use App\Models\Category as ModelsCategory;
-use App\Product;
+use App\Models\Product as ModelsProduct;
+
 
 class Helper extends JsonResource
 {
@@ -34,5 +34,24 @@ class Helper extends JsonResource
             $newCategory->saveOrFail();
             return ModelsCategory::where('categoryName',$categoryInput)->first()->id;
         }
+    }
+
+    public static function addProduct($productImput)
+    {
+        $newProduct=new ModelsProduct();   
+        
+        $newProduct->model=$productImput['model'];
+        $newProduct->type=$productImput['type'];
+        $newProduct->category=Helper::getIdOfCategory($productImput['category']);
+        $newProduct->manufacturor=$productImput['manufacturor'];
+        $newProduct->serial=$productImput['serial'];
+        $newProduct->sku=$productImput['sku'];
+        $newProduct->prise=$productImput['prise'];
+        $newProduct->discount=$productImput['discount'];
+        $newProduct->description=$productImput['description'];
+        $newProduct->link=$productImput['link'];
+
+        $newProduct->saveOrFail();
+        
     }
 }

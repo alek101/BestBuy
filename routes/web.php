@@ -19,3 +19,4 @@ Route::get('/', function () {
 });
 
 Route::get('/test1',[TestController::class, 'test1']);
+Route::get('/test2',[TestController::class, 'test2']);
