@@ -21,7 +21,7 @@ class CreateProductsTable extends Migration
             $table->unsignedBigInteger('category');
             $table->foreign('category')->references('id')->on('categories')->onDelete('cascade');
             $table->char('manufacturor',50);
-            $table->integer('serial');
+            $table->bigInteger('serial');
             $table->integer('sku');
             $table->decimal('prise',10,2);
             $table->decimal('discount',10,2);

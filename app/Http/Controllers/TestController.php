@@ -35,4 +35,9 @@ class TestController extends Controller
         return json_encode('uradjeno');
     }
 
+    public function test3()
+    {
+        return json_encode(Helper::loadDataFromFile("products.csv"));
+    }
+
 }
