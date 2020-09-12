@@ -58,29 +58,68 @@ class Helper extends JsonResource
     public static function loadDataFromFile($filePath)
     {
         $file=fopen(storage_path($filePath), "r");
+        $line=0;
+        $report=['done'];
         while(! feof($file))
         {
-            $dataArray=explode(',',fgets($file)); $i=0;
+            $line++;
+            $dataArray=explode(',',fgets($file));
 
-            //need validation
-            
-            $product=[
-                'model'=>$dataArray[$i],
-                'type'=>$dataArray[$i+1],
-                'category'=>$dataArray[$i+2],
-                'manufacturor'=>$dataArray[$i+3],
-                'serial'=>$dataArray[$i+4],
-                'sku'=>$dataArray[$i+5],
-                'prise'=>$dataArray[$i+6],
-                'discount'=>$dataArray[$i+7],
-                'description'=>$dataArray[$i+8],
-                'link'=>$dataArray[$i+9]
-            ];
-           
-            Helper::addProduct($product); 
-            
+            if(count($dataArray)==10)
+            {
+                $product=[
+                    'model'=>$dataArray[0],
+                    'type'=>$dataArray[1],
+                    'category'=>$dataArray[2],
+                    'manufacturor'=>$dataArray[3],
+                    'serial'=>$dataArray[4],
+                    'sku'=>$dataArray[5],
+                    'prise'=>$dataArray[6],
+                    'discount'=>$dataArray[7],
+                    'description'=>$dataArray[8],
+                    'link'=>$dataArray[9]
+                ];
+               
+                $partCheck=Helper::productValidator($product,$line);
+                if(count($partCheck)==0)
+                {
+                   Helper::addProduct($product);  
+                }
+                else
+                {
+                    array_push($report,$partCheck);
+                }
+            }
+            else
+            {
+                array_push($report,"Bad data (to many commas) on line $line");
+            }
         }
 
-        return 'done';
+        return json_encode($report);
+    }
+
+    public static function productValidator($productArray,$line)
+    {
+        $check=[];
+
+        if(!isset($productArray)) array_push($check,"There is no product on line $line");
+        Helper::validatePartProduct($productArray,$line,$check,'model','string');
+        Helper::validatePartProduct($productArray,$line,$check,'type','string');
+        Helper::validatePartProduct($productArray,$line,$check,'category','integer');
+        Helper::validatePartProduct($productArray,$line,$check,'manufacturor','string');
+        Helper::validatePartProduct($productArray,$line,$check,'serial','integer');
+        Helper::validatePartProduct($productArray,$line,$check,'sku','integer');
+        Helper::validatePartProduct($productArray,$line,$check,'prise','double');
+        Helper::validatePartProduct($productArray,$line,$check,'discount','double');
+        Helper::validatePartProduct($productArray,$line,$check,'description','string');
+        Helper::validatePartProduct($productArray,$line,$check,'link','string');
+
+        return $check;
+    }
+
+    public static function validatePartProduct($productArray,$line,$check,$name,$type)
+    {
+        if(!isset($productArray[$name]) and gettype($productArray[$name])==$type) array_push($check,"Bad $name on line $line");
     }
 }
