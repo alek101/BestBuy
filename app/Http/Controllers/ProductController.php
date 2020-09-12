@@ -39,6 +39,7 @@ class ProductController extends Controller
      */
     public function update(Request $request)
     {
+        //validation
         $productImput=[
             'model'=>$request->model,
             'type'=>$request->type,
@@ -63,6 +64,7 @@ class ProductController extends Controller
      */
     public function destroy($id)
     {
-        //
+        ModelsProduct::destroy($id);
+        return json_encode("deleted");
     }
 }
