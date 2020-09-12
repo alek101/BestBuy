@@ -16,12 +16,12 @@ class FileController extends Controller
     {
         
         $request->validate([
-            'csv'=>'required'
+            'csv'=>'required|file'
         ]);
 
         $file = $request->file('csv');
         $name = $file->getClientOriginalName();
-        $file->move('/storage',$name);
+        $file->move(storage_path('storage'),$name);
         return json_encode(Helper::loadDataFromFile($name));
     }
 }

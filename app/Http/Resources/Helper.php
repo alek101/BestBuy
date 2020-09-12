@@ -62,9 +62,9 @@ class Helper extends JsonResource
         $newProduct->saveOrFail();  
     }
 
-    public static function loadDataFromFile($filePath)
+    public static function loadDataFromFile($fileName)
     {
-        $file=fopen(storage_path($filePath), "r");
+        $file=fopen(storage_path('storage/'.$fileName), "r");
         $line=0;
         $report=['done'];
         while(! feof($file))
