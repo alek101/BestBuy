@@ -1,6 +1,6 @@
 <html>
    <body>
-      <form action="/uploadfile" method="POST" enctype="multipart/form-data">
+      <form action="{{ route('import') }}" method="POST" enctype="multipart/form-data">
          {{ csrf_field() }}
          Please instert CSV file:
          <br />

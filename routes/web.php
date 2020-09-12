@@ -18,7 +18,7 @@ use App\Http\Controllers\ProductController;
 
 
 Route::get('/',[FileController::class, 'index']);
-Route::post('/uploadfile',[FileController::class, 'addCSV']);
+Route::post('/uploadfile',[FileController::class, 'addCSV'])->name('import');
 
 Route::prefix('/categories')->group(function()
 {
