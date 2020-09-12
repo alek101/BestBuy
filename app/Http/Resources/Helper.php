@@ -36,9 +36,17 @@ class Helper extends JsonResource
         }
     }
 
-    public static function addProduct($productImput)
+    public static function addProduct($productImput,$id='new')
     {
-        $newProduct=new ModelsProduct();   
+        if($id=='new')
+        {
+            $newProduct=new ModelsProduct(); 
+        }
+        else
+        {
+            $newProduct=ModelsProduct::findOrFail($id);
+        }
+          
         
         $newProduct->model=$productImput['model'];
         $newProduct->type=$productImput['type'];
@@ -51,8 +59,7 @@ class Helper extends JsonResource
         $newProduct->description=$productImput['description'];
         $newProduct->link=$productImput['link'];
 
-        $newProduct->save();
-        
+        $newProduct->saveOrFail();  
     }
 
     public static function loadDataFromFile($filePath)
