@@ -40,19 +40,18 @@ class ProductController extends Controller
     public function update(Request $request)
     {
         $productImput=[
-            'model'=>'model',
-            'type'=>'type',
-            'category'=>'category',
-            'manufacturor'=>'filps',
-            'serial'=>1213113,
-            'sku'=>2323,
-            'prise'=>12.11,
-            'discount'=>10.11,
-            'description'=>'opis',
-            'link'=>'link'
+            'model'=>$request->model,
+            'type'=>$request->type,
+            'category'=>$request->category,
+            'manufacturor'=>$request->manufacturor,
+            'serial'=>$request->serial,
+            'sku'=>$request->sku,
+            'prise'=>$request->prise,
+            'discount'=>$request->discount,
+            'description'=>$request->description,
+            'link'=>$request->link
         ];
-        $id=4;
-        Helper::addProduct($productImput,$id);
+        Helper::addProduct($productImput,$request->id);
         return json_encode('Saved');
     }
 
