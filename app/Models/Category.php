@@ -11,6 +11,6 @@ class Category extends Model
 
     public function category()
     {
-        return $this->hasMany('App\Product','category','id');
+        return $this->hasMany('App\Models\Product','category','id');
     }
 }

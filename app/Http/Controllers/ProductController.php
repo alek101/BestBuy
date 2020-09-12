@@ -15,13 +15,15 @@ class ProductController extends Controller
      */
     public function index()
     {
-        return json_encode(ModelsProduct::join('categories','products.category','=','categories.id')->get());
+        return json_encode(ModelsProduct::all());
     }
 
     
-    public function show($id)
+    public function showProductsByCategoryID($id)
     {
-        //
+        return json_encode(ModelsProduct::where('category',$id)
+        // ->leftJoin('categories','products.category','=','categories.id')
+        ->get());
     }
 
 
