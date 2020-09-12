@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TestController;
+use App\Http\Controllers\FileController;
+use GuzzleHttp\Psr7\UploadedFile;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,10 +16,13 @@ use App\Http\Controllers\TestController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 
 Route::get('/test1',[TestController::class, 'test1']);
 Route::get('/test2',[TestController::class, 'test2']);
 Route::get('/test3',[TestController::class, 'test3']);
+
+Route::get('/',[FileController::class, 'index']);
+Route::post('/uploadfile',[FileController::class, 'addCSV']);
