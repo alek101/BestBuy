@@ -6,7 +6,7 @@
          <br />
          <input type="file" name="csv" />
          <br /><br />
-         <input type="submit" value=" Save " />
+         <input type="submit" value=" Parse CSV " />
      </form>
    </body>
 </html>
