@@ -40,17 +40,17 @@ class ProductController extends Controller
     public function update(Request $request)
     {
         $request->validate([
-            'id'=>'required',
-            'model'=>'required',
-            'category'=>'required',
-            'department'=>'required',
-            'manufacturor'=>'required',
-            'upc'=>'required',
-            'sku'=>'required',
-            'prise'=>'required',
-            'discount'=>'required',
-            'description'=>'required',
-            'link'=>'required'
+            'id'=>'required|integer',
+            'model'=>'required|string',
+            'category'=>'required|string',
+            'department'=>'required|string',
+            'manufacturor'=>'required|string',
+            'upc'=>'required|numeric',
+            'sku'=>'required|numeric',
+            'prise'=>'required|numeric',
+            'discount'=>'required|numeric',
+            'description'=>'required|string',
+            'link'=>'required|string'
         ]);
 
         $productImput=[

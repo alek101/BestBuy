@@ -21,9 +21,9 @@ class CategoryController extends Controller
     public function update(Request $request)
     {
         $request->validate([
-            'id'=>'required',
-            'newName'=>'required'
-            // 'oldName'=>'requred'
+            'id'=>'required|numeric',
+            'newName'=>'required|string'
+            // 'oldName'=>'requred|string'
         ]);
 
         $id=$request->id;
