@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Category as ModelsCategory;
-use Illuminate\Database\Eloquent\Model;
+use App\Http\Resources\Helper;
 
 class CategoryController extends Controller
 {
@@ -20,6 +20,12 @@ class CategoryController extends Controller
 
     public function update(Request $request)
     {
+        $request->validate([
+            'id'=>'required',
+            'newName'=>'required'
+            // 'oldName'=>'requred'
+        ]);
+
         $id=$request->id;
         $newName=$request->newName;
         $category=ModelsCategory::findOrFail($id);
@@ -39,8 +45,15 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
-        //check if it is allowed-for future
-        ModelsCategory::destroy($id);
-        return json_encode("deleted");
+        if(Helper::isSafeToDeleteCategory($id))
+        {
+            ModelsCategory::destroy($id);
+            return json_encode("deleted");
+        }
+        else
+        {
+            return json_encode("There are products associated with this category");
+        }
+        
     }
 }

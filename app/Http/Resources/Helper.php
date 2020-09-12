@@ -129,4 +129,9 @@ class Helper extends JsonResource
     {
         if(!isset($productArray[$name]) and gettype($productArray[$name])==$type) array_push($check,"Bad $name on line $line");
     }
+
+    public static function isSafeToDeleteCategory($id)
+    {
+       return (ModelsProduct::where('category',$id)->count()==0)? true:false;
+    }
 }
