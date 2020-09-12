@@ -20,7 +20,7 @@ class Helper extends JsonResource
         return parent::toArray($request);
     }
 
-    public static function getIdOfCategory($categoryInput)
+    public static function getIdOfCategoryOrCreateNew($categoryInput)
     {
         $foundCategory=ModelsCategory::where('categoryName',$categoryInput);
         if($foundCategory->count()>0)
@@ -36,7 +36,7 @@ class Helper extends JsonResource
         }
     }
 
-    public static function addProduct($productImput,$id='new')
+    public static function addProductOrEdit($productImput,$id='new')
     {
         if($id=='new')
         {
@@ -50,7 +50,7 @@ class Helper extends JsonResource
         
         $newProduct->model=$productImput['model'];
         $newProduct->type=$productImput['type'];
-        $newProduct->category=Helper::getIdOfCategory($productImput['category']);
+        $newProduct->category=Helper::getIdOfCategoryOrCreateNew($productImput['category']);
         $newProduct->manufacturor=$productImput['manufacturor'];
         $newProduct->serial=$productImput['serial'];
         $newProduct->sku=$productImput['sku'];
@@ -90,7 +90,7 @@ class Helper extends JsonResource
                 $partCheck=Helper::productValidator($product,$line);
                 if(count($partCheck)==0)
                 {
-                   Helper::addProduct($product);  
+                   Helper::addProductOrEdit($product);  
                 }
                 else
                 {
