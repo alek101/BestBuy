@@ -37,9 +37,23 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+        $productImput=[
+            'model'=>'model',
+            'type'=>'type',
+            'category'=>'category',
+            'manufacturor'=>'filps',
+            'serial'=>1213113,
+            'sku'=>2323,
+            'prise'=>12.11,
+            'discount'=>10.11,
+            'description'=>'opis',
+            'link'=>'link'
+        ];
+        $id=4;
+        Helper::addProduct($productImput,$id);
+        return json_encode('Saved');
     }
 
     /**

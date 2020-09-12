@@ -39,6 +39,6 @@ Route::prefix('/products')->group(function()
 {
     Route::get('/index',[ProductController::class, 'index']);
     Route::get('/showProductsByCategoryID/{id}',[ProductController::class, 'showProductsByCategoryID']);
-    Route::post('/update',[ProductController::class, 'update']);
+    Route::get('/update',[ProductController::class, 'update']);
     Route::get('/delete/{id}',[ProductController::class, 'destroy']);
 });
