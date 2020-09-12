@@ -15,7 +15,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-        return json_encode(ModelsProduct::select('products.id as id','model','categories.categoryName as category','type','manufacturor','serial','sku','prise','discount','description','link')
+        return json_encode(ModelsProduct::select('products.id as id','model','categories.categoryName as category','department','manufacturor','upc','sku','prise','discount','description','link')
         ->leftJoin('categories','products.category','=','categories.id')
         ->get());
     }
@@ -24,7 +24,7 @@ class ProductController extends Controller
     public function showProductsByCategoryID($id)
     {
         return json_encode(ModelsProduct::where('category',$id)
-        ->select('products.id as id','model','categories.categoryName as category','type','manufacturor','serial','sku','prise','discount','description','link')
+        ->select('products.id as id','model','categories.categoryName as category','department','manufacturor','upc','sku','prise','discount','description','link')
         ->leftJoin('categories','products.category','=','categories.id')
         ->get());
     }
@@ -42,10 +42,10 @@ class ProductController extends Controller
         $request->validate([
             'id'=>'required',
             'model'=>'required',
-            'type'=>'required',
             'category'=>'required',
+            'department'=>'required',
             'manufacturor'=>'required',
-            'serial'=>'required',
+            'upc'=>'required',
             'sku'=>'required',
             'prise'=>'required',
             'discount'=>'required',
@@ -55,10 +55,10 @@ class ProductController extends Controller
 
         $productImput=[
             'model'=>$request->model,
-            'type'=>$request->type,
             'category'=>$request->category,
+            'department'=>$request->department,
             'manufacturor'=>$request->manufacturor,
-            'serial'=>$request->serial,
+            'upc'=>$request->upc,
             'sku'=>$request->sku,
             'prise'=>$request->prise,
             'discount'=>$request->discount,

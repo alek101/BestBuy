@@ -17,11 +17,11 @@ class CreateProductsTable extends Migration
             $table->id();
             $table->timestamps();
             $table->char('model',50);
-            $table->char('type',50);
             $table->unsignedBigInteger('category');
             $table->foreign('category')->references('id')->on('categories')->onDelete('cascade');
+            $table->char('department',50);
             $table->char('manufacturor',50);
-            $table->bigInteger('serial');
+            $table->bigInteger('upc');
             $table->integer('sku');
             $table->decimal('prise',10,2);
             $table->decimal('discount',10,2);

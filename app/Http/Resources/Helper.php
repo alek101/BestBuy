@@ -48,11 +48,11 @@ class Helper extends JsonResource
         }
           
         
-        $newProduct->model=$productImput['model'];
-        $newProduct->type=$productImput['type'];
+        $newProduct->model=$productImput['model']; 
         $newProduct->category=Helper::getIdOfCategoryOrCreateNew($productImput['category']);
+        $newProduct->department=$productImput['department'];
         $newProduct->manufacturor=$productImput['manufacturor'];
-        $newProduct->serial=$productImput['serial'];
+        $newProduct->upc=$productImput['upc'];
         $newProduct->sku=$productImput['sku'];
         $newProduct->prise=$productImput['prise'];
         $newProduct->discount=$productImput['discount'];
@@ -71,35 +71,37 @@ class Helper extends JsonResource
         {
             $line++;
             $dataArray=explode(',',fgets($file));
-
-            if(count($dataArray)==10)
+            if($line>1)
             {
-                $product=[
-                    'model'=>$dataArray[0],
-                    'type'=>$dataArray[1],
-                    'category'=>$dataArray[2],
-                    'manufacturor'=>$dataArray[3],
-                    'serial'=>$dataArray[4],
-                    'sku'=>$dataArray[5],
-                    'prise'=>$dataArray[6],
-                    'discount'=>$dataArray[7],
-                    'description'=>$dataArray[8],
-                    'link'=>$dataArray[9]
-                ];
-               
-                $partCheck=Helper::productValidator($product,$line);
-                if(count($partCheck)==0)
+                if(count($dataArray)==10)
                 {
-                   Helper::addProductOrEdit($product);  
+                    $product=[
+                        'model'=>$dataArray[0],
+                        'category'=>$dataArray[1],
+                        'department'=>$dataArray[2],        
+                        'manufacturor'=>$dataArray[3],
+                        'upc'=>$dataArray[4],
+                        'sku'=>$dataArray[5],
+                        'prise'=>$dataArray[6],
+                        'discount'=>$dataArray[7],
+                        'description'=>$dataArray[8],
+                        'link'=>$dataArray[9]
+                    ];
+                
+                    $partCheck=Helper::productValidator($product,$line);
+                    if(count($partCheck)==0)
+                    {
+                    Helper::addProductOrEdit($product);  
+                    }
+                    else
+                    {
+                        array_push($report,$partCheck);
+                    }
                 }
                 else
                 {
-                    array_push($report,$partCheck);
+                    array_push($report,"Bad data (to many commas) on line $line");
                 }
-            }
-            else
-            {
-                array_push($report,"Bad data (to many commas) on line $line");
             }
         }
 
@@ -112,10 +114,10 @@ class Helper extends JsonResource
 
         if(!isset($productArray)) array_push($check,"There is no product on line $line");
         Helper::validatePartProduct($productArray,$line,$check,'model','string');
-        Helper::validatePartProduct($productArray,$line,$check,'type','string');
         Helper::validatePartProduct($productArray,$line,$check,'category','integer');
+        Helper::validatePartProduct($productArray,$line,$check,'department','string');
         Helper::validatePartProduct($productArray,$line,$check,'manufacturor','string');
-        Helper::validatePartProduct($productArray,$line,$check,'serial','integer');
+        Helper::validatePartProduct($productArray,$line,$check,'upc','integer');
         Helper::validatePartProduct($productArray,$line,$check,'sku','integer');
         Helper::validatePartProduct($productArray,$line,$check,'prise','double');
         Helper::validatePartProduct($productArray,$line,$check,'discount','double');
