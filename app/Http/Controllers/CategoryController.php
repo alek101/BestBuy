@@ -22,9 +22,9 @@ class CategoryController extends Controller
     {
         $id=$request->id;
         $newName=$request->newName;
-        // $id=1;
-        // $newName='Novo ime';
         $category=ModelsCategory::findOrFail($id);
+        //if it is needed to be changed by name
+        //$category=ModelsCategory::where('categoryName',$request->oldName)->first();
         $oldName=$category->categoryName;
         $category->categoryName=$newName;
         $category->saveOrFail();
