@@ -1,7 +1,6 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\TestController;
 use App\Http\Controllers\FileController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProductController;
