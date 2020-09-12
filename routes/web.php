@@ -3,7 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TestController;
 use App\Http\Controllers\FileController;
-use GuzzleHttp\Psr7\UploadedFile;
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\ProductController;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,3 +27,10 @@ Route::get('/test3',[TestController::class, 'test3']);
 
 Route::get('/',[FileController::class, 'index']);
 Route::post('/uploadfile',[FileController::class, 'addCSV']);
+
+Route::prefix('/categories')->group(function()
+{
+    Route::get('/index',[CategoryController::class, 'index']);
+    Route::post('/update',[CategoryController::class, 'update']);
+    Route::get('/delete/{id}',[CategoryController::class, 'destroy']);
+});
