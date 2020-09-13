@@ -51,7 +51,7 @@ class Helper extends JsonResource
         $newProduct->model_number=$productImput['model_number']; 
         $newProduct->category_name=Helper::getIdOfCategoryOrCreateNew($productImput['category_name']);
         $newProduct->department_name=$productImput['department_name'];
-        $newProduct->manufacturor=$productImput['manufacturor'];
+        $newProduct->manufacturer_name=$productImput['manufacturer_name'];
         $newProduct->upc=$productImput['upc'];
         $newProduct->sku=$productImput['sku'];
         $newProduct->regular_price=$productImput['regular_price'];
@@ -79,7 +79,7 @@ class Helper extends JsonResource
                         'model_number'=>$dataArray[0],
                         'category_name'=>$dataArray[1],
                         'department_name'=>$dataArray[2],        
-                        'manufacturor'=>$dataArray[3],
+                        'manufacturer_name'=>$dataArray[3],
                         'upc'=>$dataArray[4],
                         'sku'=>$dataArray[5],
                         'regular_price'=>$dataArray[6],
@@ -116,7 +116,7 @@ class Helper extends JsonResource
         Helper::validatePartProduct($productArray,$line,$check,'model_number','string');
         Helper::validatePartProduct($productArray,$line,$check,'category_name','integer');
         Helper::validatePartProduct($productArray,$line,$check,'department_name','string');
-        Helper::validatePartProduct($productArray,$line,$check,'manufacturor','string');
+        Helper::validatePartProduct($productArray,$line,$check,'manufacturer_name','string');
         Helper::validatePartProduct($productArray,$line,$check,'upc','integer');
         Helper::validatePartProduct($productArray,$line,$check,'sku','integer');
         Helper::validatePartProduct($productArray,$line,$check,'regular_price','double');
