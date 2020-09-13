@@ -137,8 +137,8 @@ class Helper extends JsonResource
        return (ModelsProduct::where('category',$id)->count()==0)? true:false;
     }
 
-    public static function transformLink($link)
+    public static function transformLink($url)
     {
-        return $link;
+        return $url;
     }
 }
