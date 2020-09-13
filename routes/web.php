@@ -5,7 +5,6 @@ use App\Http\Controllers\FileController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\TokenController;
-use App\Http\Controllers\TesterController;
 
 /*
 |--------------------------------------------------------------------------
@@ -38,5 +37,3 @@ Route::prefix('/products')->group(function()
     Route::post('/shortLink',[ProductController::class, 'shortLink']);
     Route::delete('/delete/{id}',[ProductController::class, 'destroy']);
 });
-
-Route::get('/test11',[TesterController::class, 'testGuzz']);
