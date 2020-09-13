@@ -57,7 +57,7 @@ class Helper extends JsonResource
         $newProduct->prise=$productImput['prise'];
         $newProduct->discount=$productImput['discount'];
         $newProduct->description=$productImput['description'];
-        $newProduct->link=$productImput['link'];
+        $newProduct->link=Helper::transformLink($productImput['link']);
 
         $newProduct->saveOrFail();  
     }
@@ -135,5 +135,10 @@ class Helper extends JsonResource
     public static function isSafeToDeleteCategory($id)
     {
        return (ModelsProduct::where('category',$id)->count()==0)? true:false;
+    }
+
+    public static function transformLink($link)
+    {
+        return $link;
     }
 }
