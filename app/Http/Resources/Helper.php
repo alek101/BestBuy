@@ -48,16 +48,16 @@ class Helper extends JsonResource
         }
           
         
-        $newProduct->model=$productImput['model']; 
-        $newProduct->category=Helper::getIdOfCategoryOrCreateNew($productImput['category']);
-        $newProduct->department=$productImput['department'];
+        $newProduct->model_number=$productImput['model_number']; 
+        $newProduct->category_name=Helper::getIdOfCategoryOrCreateNew($productImput['category_name']);
+        $newProduct->department_name=$productImput['department_name'];
         $newProduct->manufacturor=$productImput['manufacturor'];
         $newProduct->upc=$productImput['upc'];
         $newProduct->sku=$productImput['sku'];
-        $newProduct->prise=$productImput['prise'];
-        $newProduct->discount=$productImput['discount'];
+        $newProduct->regular_price=$productImput['regular_price'];
+        $newProduct->sale_price=$productImput['sale_price'];
         $newProduct->description=$productImput['description'];
-        $newProduct->link=$productImput['link'];
+        $newProduct->url=$productImput['url'];
 
         $newProduct->saveOrFail();  
     }
@@ -76,16 +76,16 @@ class Helper extends JsonResource
                 if(count($dataArray)==10)
                 {
                     $product=[
-                        'model'=>$dataArray[0],
-                        'category'=>$dataArray[1],
-                        'department'=>$dataArray[2],        
+                        'model_number'=>$dataArray[0],
+                        'category_name'=>$dataArray[1],
+                        'department_name'=>$dataArray[2],        
                         'manufacturor'=>$dataArray[3],
                         'upc'=>$dataArray[4],
                         'sku'=>$dataArray[5],
-                        'prise'=>$dataArray[6],
-                        'discount'=>$dataArray[7],
+                        'regular_price'=>$dataArray[6],
+                        'sale_price'=>$dataArray[7],
                         'description'=>$dataArray[8],
-                        'link'=>$dataArray[9]
+                        'url'=>$dataArray[9]
                     ];
                 
                     $partCheck=Helper::productValidator($product,$line);
@@ -113,16 +113,16 @@ class Helper extends JsonResource
         $check=[];
 
         if(!isset($productArray)) array_push($check,"There is no product on line $line");
-        Helper::validatePartProduct($productArray,$line,$check,'model','string');
-        Helper::validatePartProduct($productArray,$line,$check,'category','integer');
-        Helper::validatePartProduct($productArray,$line,$check,'department','string');
+        Helper::validatePartProduct($productArray,$line,$check,'model_number','string');
+        Helper::validatePartProduct($productArray,$line,$check,'category_name','integer');
+        Helper::validatePartProduct($productArray,$line,$check,'department_name','string');
         Helper::validatePartProduct($productArray,$line,$check,'manufacturor','string');
         Helper::validatePartProduct($productArray,$line,$check,'upc','integer');
         Helper::validatePartProduct($productArray,$line,$check,'sku','integer');
-        Helper::validatePartProduct($productArray,$line,$check,'prise','double');
-        Helper::validatePartProduct($productArray,$line,$check,'discount','double');
+        Helper::validatePartProduct($productArray,$line,$check,'regular_price','double');
+        Helper::validatePartProduct($productArray,$line,$check,'sale_price','double');
         Helper::validatePartProduct($productArray,$line,$check,'description','string');
-        Helper::validatePartProduct($productArray,$line,$check,'link','string');
+        Helper::validatePartProduct($productArray,$line,$check,'url','string');
 
         return $check;
     }
@@ -134,7 +134,7 @@ class Helper extends JsonResource
 
     public static function isSafeToDeleteCategory($id)
     {
-       return (ModelsProduct::where('category',$id)->count()==0)? true:false;
+       return (ModelsProduct::where('category_name',$id)->count()==0)? true:false;
     }
 
     public static function transformLink($url)

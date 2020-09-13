@@ -52,7 +52,7 @@ class CategoryController extends Controller
         }
         else
         {
-            return json_encode("There are products associated with this category");
+            return json_encode("There are products associated with this category name");
         }
         
     }

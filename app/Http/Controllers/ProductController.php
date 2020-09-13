@@ -15,16 +15,16 @@ class ProductController extends Controller
      */
     public function index()
     {
-        return json_encode(ModelsProduct::select('products.id as id','model','categories.categoryName as category','department','manufacturor','upc','sku','prise','discount','description','link')
-        ->leftJoin('categories','products.category','=','categories.id')
+        return json_encode(ModelsProduct::select('products.id as id','model_number','categories.categoryName as categoryName','department_name','manufacturer_name','upc','sku','regular_price','sale_price','description','url')
+        ->leftJoin('categories','products.category_name','=','categories.id')
         ->get());
     }
 
     
     public function showProductsByCategoryID($id)
     {
-        return json_encode(ModelsProduct::where('category',$id)
-        ->select('products.id as id','model','categories.categoryName as category','department','manufacturor','upc','sku','prise','discount','description','link')
+        return json_encode(ModelsProduct::where('category_name',$id)
+        ->select('products.id as id','model_number','categories.categoryName as categoryName','department_name','manufacturer_name','upc','sku','regular_price','sale_price','description','url')
         ->leftJoin('categories','products.category','=','categories.id')
         ->get());
     }
@@ -41,29 +41,29 @@ class ProductController extends Controller
     {
         $request->validate([
             'id'=>'required|integer',
-            'model'=>'required|string',
-            'category'=>'required|string',
-            'department'=>'required|string',
-            'manufacturor'=>'required|string',
+            'model_number'=>'required|string',
+            'category_name'=>'required|string',
+            'department_name'=>'required|string',
+            'manufacturer_name'=>'required|string',
             'upc'=>'required|numeric',
             'sku'=>'required|numeric',
-            'prise'=>'required|numeric',
-            'discount'=>'required|numeric',
+            'regular_price'=>'required|numeric',
+            'sale_price'=>'required|numeric',
             'description'=>'required|string',
-            'link'=>'required|string'
+            'url'=>'required|string'
         ]);
 
         $productImput=[
-            'model'=>$request->model,
-            'category'=>$request->category,
-            'department'=>$request->department,
-            'manufacturor'=>$request->manufacturor,
+            'model_number'=>$request->model_number,
+            'category_name'=>$request->category_name,
+            'department_name'=>$request->department_name,
+            'manufacturer_name'=>$request->manufacturer_name,
             'upc'=>$request->upc,
             'sku'=>$request->sku,
-            'prise'=>$request->prise,
-            'discount'=>$request->discount,
+            'regular_price'=>$request->regular_price,
+            'sale_price'=>$request->sale_price,
             'description'=>$request->description,
-            'link'=>$request->link
+            'url'=>$request->url
         ];
 
         Helper::addProductOrEdit($productImput,$request->id);
@@ -89,8 +89,8 @@ class ProductController extends Controller
         ]);
 
         $product=ModelsProduct::findOrFail($request->id);
-        $product->link=Helper::transformLink($product->link);
+        $product->url=Helper::transformLink($product->url);
         $product->saveOrFail();
-        return json_encode("Link of product with id of $request->id have been shorten!");
+        return json_encode("URL of product with id of $request->id have been shorten!");
     }
 }
