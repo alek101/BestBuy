@@ -5,7 +5,7 @@ namespace App\Http\Resources;
 use Illuminate\Http\Resources\Json\JsonResource;
 use App\Models\Category as ModelsCategory;
 use App\Models\Product as ModelsProduct;
-use PhpParser\Node\Stmt\TryCatch;
+use Illuminate\Support\Facades\Http;
 
 class Helper extends JsonResource
 {
@@ -139,6 +139,10 @@ class Helper extends JsonResource
 
     public static function transformLink($url)
     {
-        return $url;
+        //https://laravel.com/docs/7.x/http-client
+        $response = Http::post('https://rel.ink/api/links/', [
+            'url' => $url
+        ]);
+        return 'https://rel.ink/api/links/'.$response->json()['hashid'].'/';
     }
 }
