@@ -7,7 +7,7 @@ use App\Http\Resources\Helper;
 
 class TesterController extends Controller
 {
-    public function testGuzz()
+    public function transform()
     {
         $url='https://laravel.com/docs/7.x/http-client';
         $result=Helper::transformLink($url);

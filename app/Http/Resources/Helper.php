@@ -57,7 +57,7 @@ class Helper extends JsonResource
         $newProduct->prise=$productImput['prise'];
         $newProduct->discount=$productImput['discount'];
         $newProduct->description=$productImput['description'];
-        $newProduct->link=Helper::transformLink($productImput['link']);
+        $newProduct->link=$productImput['link'];
 
         $newProduct->saveOrFail();  
     }

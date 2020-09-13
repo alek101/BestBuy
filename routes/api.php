@@ -37,5 +37,6 @@ Route::prefix('/products')->group(function()
     Route::get('/index',[ProductController::class, 'index']);
     Route::get('/showProductsByCategoryID/{id}',[ProductController::class, 'showProductsByCategoryID']);
     Route::post('/update',[ProductController::class, 'update']);
+    Route::post('/shortLink',[ProductController::class, 'shortLink']);
     Route::delete('/delete/{id}',[ProductController::class, 'destroy']);
 });

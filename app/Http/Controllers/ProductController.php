@@ -81,4 +81,16 @@ class ProductController extends Controller
         ModelsProduct::destroy($id);
         return json_encode("deleted");
     }
+
+    public function shortLink(Request $request)
+    {
+        $request->validate([
+            'id'=>'required|integer',
+        ]);
+
+        $product=ModelsProduct::findOrFail($request->id);
+        $product->link=Helper::transformLink($product->link);
+        $product->saveOrFail();
+        return json_encode("Link of product with id of $request->id have been shorten!");
+    }
 }
