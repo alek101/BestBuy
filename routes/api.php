@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\FileController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\TokenController;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,6 +23,7 @@ use App\Http\Controllers\ProductController;
 // });
 
 Route::post('/uploadfile',[FileController::class, 'addCSV']);
+Route::get('/gettoken',[TokenController::class, 'getToken']);
 
 Route::prefix('/categories')->group(function()
 {

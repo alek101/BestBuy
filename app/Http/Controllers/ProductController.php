@@ -65,6 +65,7 @@ class ProductController extends Controller
             'description'=>$request->description,
             'link'=>$request->link
         ];
+
         Helper::addProductOrEdit($productImput,$request->id);
         return json_encode('Saved');
     }
