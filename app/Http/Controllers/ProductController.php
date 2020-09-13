@@ -52,7 +52,7 @@ class ProductController extends Controller
             'description'=>'required|string',
             'url'=>'required|string'
         ]);
-
+        
         $productImput=[
             'model_number'=>$request->model_number,
             'category_name'=>$request->category_name,
